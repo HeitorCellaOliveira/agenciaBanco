@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Agência Bancária</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, #f4f4f4, #ccc); /* Gradiente de cinza claro para cinza escuro */
+        animation: fadeIn 0.5s ease-out; /* Animação de fade in */
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px); /* Começa 20px abaixo, dando o efeito de surgir de baixo para cima */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container {
+        width: 80%;
+        max-width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: lightblue; /* Fundo branco para o formulário */
+    }
+
+    .form-login {
+        text-align: center;
+    }
+
+    .tBox {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .botaoEntrar {
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .title {
+        text-align: left;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 90%;
+        }
+    }
+</style>
+<body>
+    <div class="container">
+        <form action="verificaLogin.php" method="post" class="form-login">
+            <h1>BEM-VINDO</h1>
+            <label class="title">Email:</label>
+            <input type="text" class="tBox" name="email" id="email" placeholder="Insira o Email" required>
+
+            <label class="title">Senha:</label>
+            <input type="password" class="tBox" name="senha" id="senha" placeholder="Insira a senha" required>
+
+            <input type="submit" class="botaoEntrar" value="Entrar">
+        </form>
+    </div>
+</body>
+</html>
