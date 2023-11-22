@@ -163,7 +163,7 @@
         echo '<td style="padding: 10px; color: white; font-size: 25px;">' . $row['nome'] . '</td>';
         echo '<td style="padding: 10px; color: white; font-size: 25px;">
                 <form method="post" action="cliente.php">
-                    <input type="hidden" value="'. $row['id'] .'" name="id">
+                    <input type="hidden" value="'. $row['id'] .'" name="idCliente">
                     <input type="submit" class="botaoVizu" value="Visualizar">
                 </form>
 
