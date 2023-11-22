@@ -1,4 +1,5 @@
 <?php
+
 $hostname = '127.0.0.1';
 $user = 'root';
 $password = '';
@@ -9,30 +10,30 @@ $conexao = new mysqli($hostname, $user, $password, $database);
 if ($conexao->connect_error) {
     die("Conexão falhou: " . $conexao->connect_error);
 } else {
+    session_start();
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['idCartao'])) {
-        $numeroCartao = $_POST['idCartao'];
+    $idCartao = $_POST['idCartao'];
 
-        $sql = "UPDATE cadastroclientes SET idCartao = '$numeroCartao'";
+    // Verifica se o número do cartão é válido
+    if (strlen($idCartao) == 16 || strlen($idCartao) == 19) {
+        // Verifica se o número do cartão já está cadastrado
+        $consultaNumeroCartao = "SELECT * FROM cadastroclientes WHERE idGerente = '" . $_SESSION['idGerente'] . "' AND idCartao = '" . $idCartao . "';";
+        $resultadoNumeroCartao = $conexao->query($consultaNumeroCartao);
 
-        $sql2 = "SELECT * FROM cadastroclientes WHERE idCartao = '$numeroCartao'";
-        $consultaCartao = $conexao->query($sql2);
+        if ($resultadoNumeroCartao->num_rows == 0) {
+            // Atualiza o banco de dados com o novo número do cartão
+            $updateCartao = "UPDATE cadastroclientes SET idCartao = '" . $idCartao . "' WHERE idGerente = '" . $_SESSION['idGerente'] . "';";
+            $conexao->query($updateCartao);
 
-        if ($consultaCartao->num_rows > 0) {
-            echo "Cartão já existe";
+            echo "Cartão de crédito atualizado com sucesso!";
         } else {
-            $registrarCartao2 = $conexao->query($sql);
-            echo "Cartão cadastrado com sucesso!";
-        }
-
-        if ($conexao->query($sql) === TRUE) {
-            echo "Número do cartão adicionado com sucesso!";
-            header('Location: cliente.php', true, 301);
-        } else {
-            echo "Erro ao adicionar número do cartão: " . $conexao->error;
+            echo "O número do cartão já está cadastrado para este cliente.";
         }
     } else {
-        echo "Número do cartão não foi recebido corretamente.";
+        echo "O número do cartão deve ter 16 ou 19 dígitos.";
     }
 }
+
+$conexao->close();
+
 ?>
