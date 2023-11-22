@@ -140,8 +140,6 @@
     } else {
         session_start();
 
-        
-
         $consultaNomeGerente = "SELECT idGerente FROM logingerente WHERE idGerente = '".$_SESSION['idGerente']."';";
         $resultadoNomeGerente = $conexao->query($consultaNomeGerente);
 
@@ -151,11 +149,12 @@
         }
 
         $mostrarClientes = "SELECT * FROM cadastroclientes WHERE idGerente = '". $nomeGerente ."';";
-        $resultado = $conexao->query($mostrarClientes);
+        $resultado = $conexao->query($mostrarClientes);  
 
         if ($resultado->num_rows > 0) {
-            while ($row = $resultado->fetch_assoc()) {
+            if ($row = $resultado->fetch_assoc()) {
                 echo "<div class='container'>";
+
                 echo "<h1>Informações Pessoais</h1>";
             
                 echo "<div class='with-border'><b><label class='title'>Nome Completo: </label></b>";
