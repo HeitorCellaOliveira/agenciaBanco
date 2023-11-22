@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | Agência Bancária</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, #FFE4C4, #8B7D6B); /* Gradiente de cinza claro para cinza escuro */
+        animation: fadeIn 0.5s ease-out; /* Animação de fade in */
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px); /* Começa 20px abaixo, dando o efeito de surgir de baixo para cima */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container {
+        width: 80%;
+        max-width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #8B4513; /* Fundo branco para o formulário */
+    }
+
+    .form-login {
+        text-align: center;
+    }
+
+    .tBox {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .botao {
+        background-color: #FFE4C4;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .title {
+        text-align: left;
+        margin-bottom: 5px;
+        display: block;
+        color: white;
+    }
+
+    .voltar {
+        text-decoration: none;
+        color: white;
+    }
+
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 90%;
+        }
+    }
+</style>
+<body>
+    <div class="container">
+        <form action="clientesCadastrarBD.php" method="POST" class="form-login">
+            <h1 style="color: white;">Cadastro de Clientes</h1>
+            <label class="title">Nome Completo:</label>
+            <input type="text" class="tBox" name="nome" id="nome" placeholder="Insira o nome completo" required>
+
+            <label class="title" for="cpf">CPF:</label>
+            <input type="text" class="tBox" name="cpf" id="cpf" placeholder="xxx.xxx.xxx-xx" oninput="formatarCPF(this)" maxlength="14" required>
+
+            <script>
+                function formatarCPF(campo) {
+                  let valor = campo.value.replace(/\D/g, '');
+                  valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                  valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                  valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                  campo.value = valor;
+                }
+                </script>
+
+            <label class="title" for="telefone">Telefone:</label>
+            <input type="text" class="tBox" name="telefone" id="telefone" placeholder="(xx) x xxxx-xxxx" oninput="formatarTelefone(this)" maxlength="15" required>
+
+            <script>
+                function formatarTelefone(campo) {
+                    var telefone = document.getElementById('telefone');
+                    var valor = telefone.value;
+            
+                    // Remove all non-numeric characters
+                    valor = valor.replace(/\D/g, '');
+            
+                    // Check if the number has 11 digits (with area code)
+                    if (valor.length === 11) {
+                        valor = valor.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+                    }
+                    // Check if the number has 10 digits (without area code)
+                    else if (valor.length === 10) {
+                        valor = valor.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+                    }
+            
+                    telefone.value = valor;
+                }
+            </script>
+
+            <label class="title">Email:</label>
+            <input type="text" class="tBox" name="email" id="email" placeholder="exemplo@exemplo.com" required>
+
+            <input type="submit" class="botao" value="Cadastrar">
+
+            <br><br><a href="home.php" class="voltar">Voltar</a>
+        </form>
+    </div>
+</body>
+</html>
