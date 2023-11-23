@@ -98,14 +98,6 @@
         cursor: pointer;
     }
 
-    .botaoVizu {
-        background-color: #FFE4C4;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
     .container {
         width: 50%;
         max-width: 100%;
@@ -117,6 +109,16 @@
         align-items: center; /* Alterado para centro */
         background-color: #8B4513;
         margin-top: 20px; /* Ajustado para espaço entre a navbar e o container */
+    }
+
+    .botaoVizu {
+        font-size: 16px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFE4C4;
+        padding: 10px 20px;
     }
 
     .subtitle {
@@ -162,10 +164,7 @@
         echo '<td style="padding: 10px; color: white; font-size: 25px;">' . $row['id'] . '</td>';
         echo '<td style="padding: 10px; color: white; font-size: 25px;">' . $row['nome'] . '</td>';
         echo '<td style="padding: 10px; color: white; font-size: 25px;">
-                <form method="post" action="cliente.php">
-                    <input type="hidden" value="'. $row['id'] .'" name="idCliente">
-                    <input type="submit" class="botaoVizu" value="Visualizar">
-                </form>
+                <a href="cliente.php?idCliente='. $row['id'] .'" class="botaoVizu" style="text-decoration: none; color: black;">Visualizar</a>
 
                 <script>
                     function mostrarDados() {
